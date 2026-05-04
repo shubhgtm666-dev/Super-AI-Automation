@@ -22,9 +22,9 @@ jobs:
 
       - name: Build APK
         run: |
-          # NDK path fix for GitHub Actions
+          pip install --upgrade "python-for-android"
           export ANDROID_NDK_HOME=$ANDROID_NDK_LATEST_HOME
-          buildozer android debug
+          buildozer -v android debug
         env:
           ACCEPT_SDK_LICENSE: 1
 
