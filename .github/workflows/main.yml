@@ -1,24 +1,7 @@
-name: Super AI Build System
-on: [push, pull_request]
-
-jobs:
-  build:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build APK with Docker (The Pro Way)
-        uses: gear-vanguard/buildozer-action@v1
-        with:
-          buildozer_version: master
-          workdir: .
-
-      - name: Upload Finished APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: Super-AI-Automation-APK
-          path: bin/*.apk
+      - name: Build with p4a
+        run: |
+          pip install python-for-android
+          p4a apk --private . --package=com.superai.auto --name="Super AI" --version=1.0 --bootstrap=sdl2 --requirements=python3,kivy
 
 
 
