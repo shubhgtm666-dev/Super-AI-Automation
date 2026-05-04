@@ -1,35 +1,23 @@
-name: Build APK
+name: Super AI Build System
 on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Build APK with Docker (The Pro Way)
+        uses: gear-vanguard/buildozer-action@v1
         with:
-          python-version: '3.10'
+          buildozer_version: master
+          workdir: .
 
-      - name: Install Dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y build-essential git python3-dev ffmpeg libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev libgstreamer1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good
-          pip install --upgrade pip
-          pip install buildozer cython setuptools
-
-      - name: Build APK with Buildozer
-        run: |
-          buildozer android debug
-        env:
-          ACCEPT_SDK_LICENSE: 1
-
-      - name: Upload APK
+      - name: Upload Finished APK
         uses: actions/upload-artifact@v4
         with:
-          name: super-ai-apk
+          name: Super-AI-Automation-APK
           path: bin/*.apk
 
 
