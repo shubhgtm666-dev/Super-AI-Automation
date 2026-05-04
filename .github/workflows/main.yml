@@ -1,7 +1,33 @@
-      - name: Build with p4a
+name: Super AI Build Final
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Buildozer and Dependencies
         run: |
-          pip install python-for-android
-          p4a apk --private . --package=com.superai.auto --name="Super AI" --version=1.0 --bootstrap=sdl2 --requirements=python3,kivy
+          sudo apt update
+          sudo apt install -y build-essential git python3-dev ffmpeg libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev libgstreamer1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good
+          pip install --upgrade pip
+          pip install buildozer cython setuptools
 
+      - name: Build APK
+        run: |
+          yes | buildozer -v android debug
+        env:
+          ACCEPT_SDK_LICENSE: 1
 
-
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Super-AI-Final-APK
+          path: bin/*.apk
