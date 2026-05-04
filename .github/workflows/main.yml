@@ -18,10 +18,12 @@ jobs:
           sudo apt update
           sudo apt install -y build-essential git python3-dev ffmpeg libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev libgstreamer1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good
           pip install --upgrade pip
-          pip install buildozer cython setuptools
+          pip install "buildozer==1.5.0" cython setuptools
 
       - name: Build APK
         run: |
+          # NDK path fix for GitHub Actions
+          export ANDROID_NDK_HOME=$ANDROID_NDK_LATEST_HOME
           buildozer android debug
         env:
           ACCEPT_SDK_LICENSE: 1
