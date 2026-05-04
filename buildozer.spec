@@ -6,15 +6,19 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 version = 0.1
 
-# Sabse important permissions[span_1](start_span)[span_1](end_span)
-android.permissions = INTERNET, REQUEST_INSTALL_PACKAGES, BIND_ACCESSIBILITY_SERVICE, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE
+# Sabse important permissions automation ke liye
+android.permissions = INTERNET, REQUEST_INSTALL_PACKAGES, BIND_ACCESSIBILITY_SERVICE, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, SYSTEM_ALERT_WINDOW
 
-requirements = python3,kivy,requests
+# Pyjnius zaroori hai phone control ke liye
+requirements = python3,kivy,requests,pyjnius
 
 orientation = portrait
 fullscreen = 0
-android.archs = arm64-v8a, armeabi-v7a
-android.allow_backup = True
 
-# Accessibility Service Configuration (Future use ke liye)[span_2](start_span)[span_2](end_span)
-# android.services = MyAIService:service.py
+# Fast build ke liye sirf ek arch rakha hai
+android.archs = arm64-v8a
+android.allow_backup = True
+android.accept_sdk_license = True
+
+# Accessibility Service Configuration
+android.services = MyAIService:service.py
