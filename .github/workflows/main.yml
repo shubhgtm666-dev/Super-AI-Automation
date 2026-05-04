@@ -16,3 +16,6 @@ jobs:
         with:
           name: super-ai-apk
           path: bin/*.apk
+
+
+
